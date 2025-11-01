@@ -8,7 +8,7 @@
     "version": "1",
     "name": "Example Frame",
     "iconUrl": "https://fpp-sable.vercel.app/icon.png",
-    "homeUrl": "https://fpp-sable.vercel.app",
+    "homeUrl": "https://fpp-sable.vercel.app/",
     "imageUrl": "https://fpp-sable.vercel.app/image.png",
     "buttonTitle": "Check this out",
     "splashImageUrl": "https://fpp-sable.vercel.app/splash.png",
