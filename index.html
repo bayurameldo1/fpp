@@ -3,129 +3,59 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta property="og:title" content="Farcaster Punks — Mint" />
+  <meta property="og:description" content="Mint Farcaster Punks — Mint directly from Warpcast or OpenSea" />
+  <meta property="og:image" content="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafbdvvk4u66oe22sv2onpiznlwulgpnmdixxh4bhb62xsrw6ms6e" />
+  <meta property="og:url" content="https://fpp-sable.vercel.app/" />
+  <meta name="twitter:card" content="summary_large_image">
   <title>Farcaster Punks — Mint</title>
-  <link rel="icon" href="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafbdvvk4u66oe22sv2onpiznlwulgpnmdixxh4bhb62xsrw6ms6e" />
   <style>
-    :root{--bg:#07020b;--card:#0f0c14;--muted:#bdb6cd;--accent:#7c3aed;}
-    body{margin:0;background:radial-gradient(circle at 10% 10%, rgba(124,58,237,0.08), transparent 10%), linear-gradient(180deg,#060417,#0a0520);font-family:Inter,system-ui,Arial;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
-    .card{max-width:980px;width:100%;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));border-radius:14px;padding:28px;box-shadow:0 6px 30px rgba(0,0,0,0.5)}
-    .head{display:flex;gap:20px;align-items:center}
-    .logo{width:120px;height:120px;object-fit:cover;border-radius:12px;background:#000}
-    h1{margin:0;font-size:28px}
-    p.muted{color:var(--muted);margin:6px 0 0}
-    .row{display:flex;gap:16px;margin-top:20px;flex-wrap:wrap}
-    .col-left{flex:1;min-width:240px}
-    .col-right{width:300px}
-    .btn{display:inline-block;padding:12px 18px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
-    .btn-primary{background:var(--accent);color:#fff}
-    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff}
-    .links{display:flex;gap:10px;margin-top:14px}
-    .info{color:var(--muted);margin-top:12px}
-    .small{font-size:13px;color:var(--muted)}
-    footer{margin-top:18px;color:var(--muted);font-size:13px}
-    input[type=number]{width:80px;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff}
+    :root{--bg:#08040b;--card:#0f0b18;--muted:#bdb8d0;--accent:#7c3aed}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#05020a,#0b0420);color:#fff}
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px}
+    .card{width:100%;max-width:960px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:12px;padding:20px;box-shadow:0 6px 30px rgba(0,0,0,0.6)}
+    .row{display:flex;gap:20px;align-items:center}
+    .logo{width:132px;height:132px;border-radius:10px;object-fit:cover}
+    h1{margin:0 0 6px 0;font-size:22px}
+    p{margin:0;color:var(--muted)}
+    .buttons{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+    .btn{background:var(--accent);color:white;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:600}
+    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .footer{margin-top:18px;color:var(--muted);font-size:13px}
+    @media(max-width:640px){ .row{flex-direction:column;align-items:flex-start} .logo{width:96px;height:96px}}
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="head">
-      <img class="logo" id="logo" src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafbdvvk4u66oe22sv2onpiznlwulgpnmdixxh4bhb62xsrw6ms6e" alt="logo">
-      <div>
-        <h1>Farcaster Punks</h1>
-        <p class="muted">Official mint — Base network</p>
-        <div class="links">
-          <a class="small" href="https://x.com/farcasterpunks" target="_blank" rel="noreferrer">Twitter</a>
-          <a class="small" href="https://opensea.io/collection/farcaster-punks-59466883/overview" target="_blank" rel="noreferrer">OpenSea</a>
-          <a class="small" href="https://warpcast.com" target="_blank" rel="noreferrer">Farcaster/Warpcast</a>
+  <main class="wrap">
+    <div class="card">
+      <div class="row">
+        <img class="logo" src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafbdvvk4u66oe22sv2onpiznlwulgpnmdixxh4bhb62xsrw6ms6e" alt="Farcaster Punks logo" />
+        <div style="flex:1">
+          <h1>Farcaster Punks — Mint</h1>
+          <p>Mint langsung dari Warpcast atau buka OpenSea untuk mint manual.</p>
+          <div class="buttons">
+            <a class="btn" id="connectBtn">Connect Wallet</a>
+            <a class="btn ghost" id="mintNow" href="https://opensea.io/collection/farcaster-punks-59466883/overview" target="_blank" rel="noreferrer">Mint on OpenSea</a>
+          </div>
+          <div class="footer">Tips: Buka halaman ini di dalam aplikasi Farcaster (Warpcast) supaya tombol Mint Now tampil di frame.</div>
         </div>
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-left">
-        <div class="info">
-          <p class="small">Connect wallet and mint directly from your wallet. Jika membuka di Warpcast, tombol frame “Mint Now” juga akan tersedia.</p>
-        </div>
-
-        <div style="margin-top:12px; display:flex; gap:10px; align-items:center;">
-          <button id="connectBtn" class="btn btn-ghost">Connect Wallet</button>
-          <button id="mintBtn" class="btn btn-primary">Mint Now</button>
-          <a id="openseaBtn" class="btn btn-ghost" href="https://opensea.io/collection/farcaster-punks-59466883/overview" target="_blank" rel="noreferrer">Mint on OpenSea</a>
-        </div>
-
-        <div style="margin-top:12px; display:flex; gap:8px; align-items:center;">
-          <label class="small">Qty</label>
-          <input id="qty" type="number" min="1" max="10" value="1">
-          <div id="priceInfo" class="small" style="margin-left:12px">Price: —</div>
-        </div>
-
-        <div id="status" style="margin-top:12px" class="small"></div>
-        <footer>Note: transaksi dikirim dari wallet kamu. Pastikan jaringan jaringan Base / sesuai collection.</footer>
-      </div>
-
-      <div class="col-right">
-        <img id="preview" src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafbdvvk4u66oe22sv2onpiznlwulgpnmdixxh4bhb62xsrw6ms6e" style="width:100%;border-radius:10px" alt="preview">
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+  </main>
   <script>
     (function(){
-      const NFT_CONTRACT = "0x4d749dc4016936759e437b1a01d2ef0f0690e651";
-      const SEADROP_ADDRESS = "0xa7a8e04195ab59c68e9d4fca396b6a4c42a446d7";
-      const SEADROP_ABI = [
-        "function getPublicDrop(address nftContract) external view returns (uint80 mintPrice, uint48 startTime, uint48 endTime, uint16 maxTotalMintableByWallet, uint16 feeBps, bool restrictFeeRecipients)",
-        "function getAllowedFeeRecipients(address nftContract) external view returns (address[])",
-        "function mintPublic(address nftContract, address feeRecipient, address minterIfNotPayer, uint256 quantity) external payable"
-      ];
-
-      const connectBtn = document.getElementById('connectBtn');
-      const mintBtn = document.getElementById('mintBtn');
-      const qtyEl = document.getElementById('qty');
-      const statusEl = document.getElementById('status');
-      const priceInfo = document.getElementById('priceInfo');
-      let provider, signer, userAddress, currentMintPriceWei = null;
-
-      async function connectWallet(){
-        if (!window.ethereum){ statusEl.textContent="Wallet not found."; return; }
-        provider = new ethers.providers.Web3Provider(window.ethereum);
-        await provider.send("eth_requestAccounts", []);
-        signer = provider.getSigner();
-        userAddress = await signer.getAddress();
-        connectBtn.textContent = userAddress.slice(0,6)+"..."+userAddress.slice(-4);
-        statusEl.textContent = "Connected: "+userAddress;
-        await fetchPrice();
+      const inIframe = window.self !== window.top;
+      const mintBtn = document.getElementById('mintNow');
+      if(inIframe){
+        mintBtn.addEventListener('click', (e)=>{
+          e.preventDefault();
+          try { window.parent.postMessage({ type: 'farcaster:mint', url: location.href }, '*'); } catch(e){}
+          setTimeout(()=> location.href = mintBtn.href, 300);
+        });
       }
-
-      async function fetchPrice(){
-        try{
-          const readProvider = new ethers.providers.JsonRpcProvider("https://mainnet.base.org");
-          const sd = new ethers.Contract(SEADROP_ADDRESS, SEADROP_ABI, readProvider);
-          const pub = await sd.getPublicDrop(NFT_CONTRACT);
-          currentMintPriceWei = ethers.BigNumber.from(pub[0].toString());
-          priceInfo.textContent = "Price: "+ethers.utils.formatEther(currentMintPriceWei)+" ETH";
-        }catch(e){priceInfo.textContent="Price: fetch failed";}
-      }
-
-      async function mintNow(){
-        if(!signer){await connectWallet();}
-        const qty = Math.max(1, Number(qtyEl.value||1));
-        if(!currentMintPriceWei) await fetchPrice();
-        const feeRecipient = ethers.constants.AddressZero;
-        const seadrop = new ethers.Contract(SEADROP_ADDRESS, SEADROP_ABI, signer);
-        const total = currentMintPriceWei.mul(qty);
-        try{
-          const tx = await seadrop.mintPublic(NFT_CONTRACT, feeRecipient, userAddress, qty, {value: total});
-          statusEl.textContent="Sent: "+tx.hash;
-          await tx.wait();
-          statusEl.textContent="Minted successfully! "+tx.hash;
-        }catch(e){statusEl.textContent="Mint failed: "+(e.message||e);}
-      }
-
-      connectBtn.onclick = connectWallet;
-      mintBtn.onclick = mintNow;
-      fetchPrice();
+      document.getElementById('connectBtn').addEventListener('click', ()=>{
+        alert('Buka di browser biasa untuk connect wallet, atau di dalam Warpcast gunakan tombol Mint di frame.');
+      });
     })();
   </script>
 </body>
