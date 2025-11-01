@@ -1,18 +1,17 @@
 {
   "accountAssociation": {
-    "header": "eyJmaWQiOjM0NjA3NSwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDEwQjUzYTlGNDFBNzhlNENDQ0FhZUEyQzUxZGZiNUY2RmYwMjIzMTgifQ",
-    "payload": "eyJkb21haW4iOiJmcHAtc2FibGUudmVyY2VsLmFwcCJ9",
-    "signature": "9OZjdgJHyguA7pgBeo7f/y0SJSmhKSkf6jc2CDlfVvwb7RJ+BZ6IfzrYmIClc3PG+qq54tGP2yP7KIXutFfazhw="
+    "header": "eyJ...REPLACE_WITH_REAL_HEADER...",
+    "payload": "eyJkb21haW4iOiJm...REPLACE_WITH_BASE64_PAYLOAD...In0",
+    "signature": "REPLACE_WITH_SIGNATURE"
   },
   "frame": {
     "version": "1",
-    "name": "Example Frame",
-    "iconUrl": "https://fpp-sable.vercel.app/icon.png",
+    "name": "Farcaster Punks \u2014 Mint",
     "homeUrl": "https://fpp-sable.vercel.app/",
-    "imageUrl": "https://fpp-sable.vercel.app/image.png",
-    "buttonTitle": "Check this out",
-    "splashImageUrl": "https://fpp-sable.vercel.app/splash.png",
-    "splashBackgroundColor": "#eeccff",
-    "webhookUrl": "https://fpp-sable.vercel.app/api/webhook"
+    "imageUrl": "https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafbdvvk4u66oe22sv2onpiznlwulgpnmdixxh4bhb62xsrw6ms6e",
+    "buttonTitle": "Mint Now",
+    "splashImageUrl": "https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafbdvvk4u66oe22sv2onpiznlwulgpnmdixxh4bhb62xsrw6ms6e",
+    "splashBackgroundColor": "#110033",
+    "postUrl": "https://fpp-sable.vercel.app/api/webhook"
   }
 }
