@@ -1,21 +1,21 @@
-Farcaster Punks — Static miniapp (Vercel)
-
+Farcaster Punks — Static Mini App (client-only)
 Files:
-- index.html              — main static page (wallet mint client + relayer button)
-- api/mint/index.js       — placeholder serverless endpoint (returns 501)
-- .well-known/farcaster.json — domain manifest example (edit homeUrl/postUrl to your domain)
-- public/assets/logo.png  — NOT included (using external logo URL from IPFS)
+- index.html        (root)
+- .well-known/farcaster.json  (manifest)
 
-Deploy to Vercel (static, no build step):
-1. Push this folder to a GitHub repo.
-2. Import repo to Vercel.
-3. In Vercel Project settings -> Build & Development, set:
-   - Build Command: (empty)
-   - Output Directory: .
-4. Deploy.
-5. Edit .well-known/farcaster.json 'homeUrl' and 'postUrl' to match your Vercel domain.
-6. If you want server-side relayer minting, implement secure logic in api/mint/index.js and protect it with a webhook secret.
+Instructions:
+1) Edit .well-known/farcaster.json accountAssociation values with a signed manifest.
+   If you already generated a signed manifest in Warpcast tools, paste values here.
+2) Deploy to Vercel (static project) or any static host.
+   - On Vercel: create a new project, link repo, set build command blank and output directory `.` so Vercel serves index.html directly.
+3) Verify manifest in Warpcast: https://<your-domain>/.well-known/farcaster.json
+   Use exact same homeUrl when previewing in Warpcast (include trailing slash if present).
+4) If Warpcast preview says 'No embed found', check:
+   - homeUrl exact match
+   - no X-Frame-Options: DENY header (static Vercel default is OK)
+   - site is accessible via https
+5) To change logo, edit index.html image src and manifest imageUrl.
 
-Logo used: https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafbdvvk4u66oe22sv2onpiznlwulgpnmdixxh4bhb62xsrw6ms6e
-OpenSea: https://opensea.io/collection/farcaster-punks-59466883/overview
-Contract (read-only reference): 0x4d749dc4016936759e437b1a01d2ef0f0690e651
+Notes:
+- This is client-only static miniapp. It does not perform server-side minting.
+- For real mint via SeaDrop you need server side relayer or user wallet integration (not included).
