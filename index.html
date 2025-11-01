@@ -2,61 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta property="og:title" content="Farcaster Punks — Mint" />
-  <meta property="og:description" content="Mint Farcaster Punks — Mint directly from Warpcast or OpenSea" />
-  <meta property="og:image" content="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafbdvvk4u66oe22sv2onpiznlwulgpnmdixxh4bhb62xsrw6ms6e" />
-  <meta property="og:url" content="https://fpp-sable.vercel.app/" />
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Farcaster Punks — Mint</title>
+  <meta property="og:title" content="Farcaster Punks — Mint">
+  <meta property="og:description" content="Mint langsung dari Farcaster atau OpenSea.">
+  <meta property="og:image" content="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafbdvvk4u66oe22sv2onpiznlwulgpnmdixxh4bhb62xsrw6ms6e">
+  <meta name="theme-color" content="#110033">
   <style>
-    :root{--bg:#08040b;--card:#0f0b18;--muted:#bdb8d0;--accent:#7c3aed}
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#05020a,#0b0420);color:#fff}
-    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px}
-    .card{width:100%;max-width:960px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:12px;padding:20px;box-shadow:0 6px 30px rgba(0,0,0,0.6)}
-    .row{display:flex;gap:20px;align-items:center}
-    .logo{width:132px;height:132px;border-radius:10px;object-fit:cover}
-    h1{margin:0 0 6px 0;font-size:22px}
-    p{margin:0;color:var(--muted)}
-    .buttons{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
-    .btn{background:var(--accent);color:white;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:600}
-    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-    .footer{margin-top:18px;color:var(--muted);font-size:13px}
-    @media(max-width:640px){ .row{flex-direction:column;align-items:flex-start} .logo{width:96px;height:96px}}
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0; padding: 0;
+      background: radial-gradient(circle at top left, #110033, #060011);
+      color: white; display: flex; justify-content: center; align-items: center;
+      height: 100vh; text-align: center;
+    }
+    .container { max-width: 500px; }
+    img.logo { width: 150px; border-radius: 16px; }
+    h1 { margin-top: 20px; font-size: 24px; }
+    p { color: #bbb; }
+    a.button {
+      display: inline-block; background: #7c3aed; color: white; text-decoration: none;
+      padding: 12px 24px; border-radius: 10px; margin-top: 20px; font-weight: bold;
+    }
+    a.button.secondary { background: transparent; border: 1px solid #7c3aed; color: #7c3aed; }
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <div class="card">
-      <div class="row">
-        <img class="logo" src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafbdvvk4u66oe22sv2onpiznlwulgpnmdixxh4bhb62xsrw6ms6e" alt="Farcaster Punks logo" />
-        <div style="flex:1">
-          <h1>Farcaster Punks — Mint</h1>
-          <p>Mint langsung dari Warpcast atau buka OpenSea untuk mint manual.</p>
-          <div class="buttons">
-            <a class="btn" id="connectBtn">Connect Wallet</a>
-            <a class="btn ghost" id="mintNow" href="https://opensea.io/collection/farcaster-punks-59466883/overview" target="_blank" rel="noreferrer">Mint on OpenSea</a>
-          </div>
-          <div class="footer">Tips: Buka halaman ini di dalam aplikasi Farcaster (Warpcast) supaya tombol Mint Now tampil di frame.</div>
-        </div>
-      </div>
-    </div>
-  </main>
-  <script>
-    (function(){
-      const inIframe = window.self !== window.top;
-      const mintBtn = document.getElementById('mintNow');
-      if(inIframe){
-        mintBtn.addEventListener('click', (e)=>{
-          e.preventDefault();
-          try { window.parent.postMessage({ type: 'farcaster:mint', url: location.href }, '*'); } catch(e){}
-          setTimeout(()=> location.href = mintBtn.href, 300);
-        });
-      }
-      document.getElementById('connectBtn').addEventListener('click', ()=>{
-        alert('Buka di browser biasa untuk connect wallet, atau di dalam Warpcast gunakan tombol Mint di frame.');
-      });
-    })();
-  </script>
+  <div class="container">
+    <img src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafbdvvk4u66oe22sv2onpiznlwulgpnmdixxh4bhb62xsrw6ms6e" class="logo" alt="Farcaster Punks Logo">
+    <h1>Farcaster Punks — Mint</h1>
+    <p>Mint koleksi NFT Farcaster Punks langsung dari OpenSea atau Farcaster App.</p>
+    <a href="https://opensea.io/collection/farcaster-punks-59466883/overview" class="button">Mint on OpenSea</a>
+    <a href="#" class="button secondary" onclick="alert('Buka dari Warpcast untuk mint langsung di frame!')">Mint in Farcaster</a>
+  </div>
 </body>
 </html>
