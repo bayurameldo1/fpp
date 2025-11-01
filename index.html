@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Farcaster Punks — Mint</title>
+  <meta name="description" content="Farcaster Punks — mint directly from Warpcast or your wallet." />
+  <style>
+    :root{/*bg-1:#050214;--bg-2:#0b0720;--card:rgba(255,255,255,0.03);--muted:#b9b6cb;--accent:#7c3aed;--glass:rgba(255,255,255,0.04)*/}
+    *{box-sizing:border-box}html,body{height:100%}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:#fff;background:radial-gradient(circle at 10% 10%, rgba(124,58,237,0.06), transparent 10%), linear-gradient(180deg,var(--bg-1),var(--bg-2));-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    .container{max-width:1100px;margin:36px auto;padding:20px}.card{background:var(--card);border-radius:14px;padding:20px;display:flex;gap:18px;align-items:flex-start}
+    .left{flex:1}.right{width:320px;text-align:center}.logo{width:96px;height:96px;border-radius:12px;object-fit:cover;display:block}
+    h1{margin:0;font-size:22px}p.lead{margin:6px 0 0;color:var(--muted)}.controls{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}.btn{background:linear-gradient(180deg,var(--accent),#5f2de6);color:#fff;padding:10px 14px;border-radius:10px;border:0;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,0.35)}.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);font-weight:600}.muted{color:var(--muted);font-size:13px;margin-top:10px}.small{font-size:13px;color:var(--muted)}.log{margin-top:12px;padding:12px;background:var(--glass);border-radius:8px;color:#e6e3ee;font-family:monospace;font-size:13px;max-height:220px;overflow:auto}.socials{display:flex;gap:8px;margin-top:14px}a.inline{color:var(--accent);text-decoration:none}footer{margin-top:18px;color:var(--muted);font-size:13px}@media(max-width:880px){.card{flex-direction:column}.right{width:100%}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card" role="main">
+      <div class="left">
+        <div style="display:flex;gap:14px;align-items:center">
+          <img class="logo" id="logoImg" src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafbdvvk4u66oe22sv2onpiznlwulgpnmdixxh4bhb62xsrw6ms6e" alt="Farcaster Punks logo" onerror="this.style.display='none'"/>
+          <div>
+            <h1>Farcaster Punks</h1>
+            <p class="lead">Official mint — open to public. Open this page in Warpcast to mint in-app or connect your wallet to mint here.</p>
+          </div>
+        </div>
+
+        <div class="controls" style="align-items:center">
+          <button id="connectBtn" class="btn ghost">Connect Wallet</button>
+          <button id="mintBtn" class="btn">Mint Now</button>
+          <button id="mintRelayerBtn" class="btn ghost">Mint via Relayer</button>
+          <a id="openSeaBtn" class="btn ghost inline" href="https://opensea.io/collection/farcaster-punks-59466883/overview" target="_blank" rel="noreferrer">View on OpenSea</a>
+        </div>
+
+        <div class="priceBox" id="priceBox">
+          <div class="small">Price: <strong id="mintPrice">—</strong> • Status: <span id="mintStatus">checking…</span></div>
+          <div class="small">Max per wallet: <span id="maxPerWallet">—</span></div>
+        </div>
+
+        <div class="muted" id="hint">Initializing…</div>
+
+        <div class="log" id="log" aria-live="polite"></div>
+
+        <div class="socials" style="margin-top:10px">
+          <a id="twitterLink" href="https://x.com/farcasterpunks" target="_blank" title="Twitter (X)">X</a>
+          <a id="farcasterLink" href="https://warpcast.com" target="_blank" title="Farcaster (Warpcast)">Warpcast</a>
+          <a id="openSeaLink" href="https://opensea.io/collection/farcaster-punks-59466883/overview" target="_blank" title="OpenSea">OpenSea</a>
+        </div>
+
+        <footer>
+          <div>Contract: <a id="contractLink" class="inline" href="https://basescan.org/address/0x4d749dc4016936759e437b1a01d2ef0f0690e651" target="_blank">0x4d749dc4016936759e437b1a01d2ef0f0690e651</a></div>
+          <div style="margin-top:6px">Open in Warpcast to mint in-app (frame uses postUrl in manifest).</div>
+        </footer>
+      </div>
+
+      <div class="right">
+        <img src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafbdvvk4u66oe22sv2onpiznlwulgpnmdixxh4bhb62xsrw6ms6e" alt="preview" style="width:220px;border-radius:12px;object-fit:cover" />
+        <div style="margin-top:12px" class="small">Public mint • Base</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // minimal client functionality: reads SeaDrop public drop and provides wallet mint flow if wallet present.
+    (function(){
+      const CONFIG = {
+        NFT_CONTRACT: '0x4d749dc4016936759e437b1a01d2ef0f0690e651',
+        SEADROP_ADDRESS: '0xa7a8e04195ab59c68e9d4fca396b6a4c42a446d7',
+        POST_URL: '/api/mint',
+        OPENSEA_URL: 'https://opensea.io/collection/farcaster-punks-59466883/overview',
+        BASESCAN_TX_PREFIX: 'https://basescan.org/tx/',
+        BASESCAN_ADDRESS_PREFIX: 'https://basescan.org/address/',
+        BASE_RPC: 'https://mainnet.base.org'
+      };
+      const logEl = document.getElementById('log');
+      const appendLog = (m)=>{ logEl.innerText = (new Date().toLocaleTimeString())+' '+m + '\n' + logEl.innerText; }
+      appendLog('Client loaded — logo from provided IPFS URL.');
+
+      // simple mint via wallet (assumes window.ethereum)
+      document.getElementById('mintBtn').addEventListener('click', async ()=>{
+        if(!window.ethereum){
+          alert('No injected wallet. Open inside Warpcast or connect a wallet first.');
+          return;
+        }
+        try{
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          const signer = provider.getSigner();
+          const SeaDropAbi = [
+            "function getPublicDrop(address nftContract) view returns (uint80,uint48,uint48,uint16,uint16,bool)",
+            "function getAllowedFeeRecipients(address nftContract) view returns (address[])",
+            "function getFeeRecipients(address nftContract) view returns (address[])",
+            "function mintPublic(address nftContract, address feeRecipient, address minterIfNotPayer, uint256 quantity) external payable"
+          ];
+          const sd = new ethers.Contract(CONFIG.SEADROP_ADDRESS, SeaDropAbi, provider);
+          const pub = await sd.getPublicDrop(CONFIG.NFT_CONTRACT);
+          const mintPrice = BigInt(pub[0].toString ? pub[0].toString() : pub[0]);
+          const qty = 1;
+          let feeRecipient = ethers.constants.AddressZero;
+          const restrict = Boolean(pub[5]);
+          if(restrict){
+            try{
+              const recips = await sd.getAllowedFeeRecipients(CONFIG.NFT_CONTRACT);
+              feeRecipient = (recips && recips.length>0) ? recips[0] : ethers.constants.AddressZero;
+            }catch(e){ feeRecipient = ethers.constants.AddressZero; }
+          }
+          const tx = await sd.connect(signer).mintPublic(CONFIG.NFT_CONTRACT, feeRecipient, await signer.getAddress(), qty, { value: mintPrice * BigInt(qty) });
+          appendLog('Mint tx sent: '+tx.hash);
+          alert('Transaction sent: ' + tx.hash);
+        }catch(err){
+          appendLog('Mint error: '+ (err && err.message ? err.message : String(err)));
+          alert('Mint failed: ' + (err && err.message ? err.message : String(err)));
+        }
+      });
+
+      // attach ethers from CDN for wallet flow
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js';
+      s.onload = ()=> appendLog('ethers loaded from CDN (v5).');
+      document.head.appendChild(s);
+    })();
+  </script>
+</body>
+</html>
