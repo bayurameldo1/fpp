@@ -5,53 +5,181 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Farcaster Punks — Mint</title>
 
-  <!-- Link ke manifest (manifest kita adalah farcaster.json) -->
+  <!-- Farcaster miniapp embed (frame button) -->
+  <meta name="fc:miniapp" content='{
+    "version":"next",
+    "imageUrl":"https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafbdvvk4u66oe22sv2onpiznlwulgpnmdixxh4bhb62xsrw6ms6e",
+    "button": {
+      "title": "Mint Now",
+      "action": {
+        "type":"launch_miniapp",
+        "name":"Farcaster Punks — Mint",
+        "url":"https://fpp-sable.vercel.app/"
+      }
+    }
+  }' />
+
+  <!-- Link to Farcaster manifest -->
   <link rel="manifest" href="/.well-known/farcaster.json">
 
-  <!-- Open Graph & Twitter card — ini membantu Warpcast mendeteksi embed -->
+  <!-- Open Graph (helps detection in embeds) -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Farcaster Punks — Mint" />
-  <meta property="og:description" content="Mint Farcaster Punks — langsung dari Warpcast" />
+  <meta property="og:description" content="Mint Farcaster Punks — Mint directly from Warpcast or in-browser." />
   <meta property="og:image" content="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafbdvvk4u66oe22sv2onpiznlwulgpnmdixxh4bhb62xsrw6ms6e" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Farcaster Punks — Mint" />
-  <meta name="twitter:description" content="Mint Farcaster Punks — langsung dari Warpcast" />
-  <meta name="twitter:image" content="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafbdvvk4u66oe22sv2onpiznlwulgpnmdixxh4bhb62xsrw6ms6e" />
 
   <style>
-    body{font-family:Inter,system-ui,Arial,Helvetica;background:#0b0720;color:#fff;margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center}
-    .card{width:960px;max-width:94vw;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:28px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
-    .row{display:flex;gap:20px;align-items:center}
-    img.logo{width:120px;height:120px;border-radius:12px;object-fit:cover}
-    .btn{display:inline-block;padding:12px 18px;border-radius:10px;background:#7c3aed;color:#fff;text-decoration:none;font-weight:600;margin-right:8px}
-    .link{color:#b9b6cb}
-    @media(max-width:720px){.row{flex-direction:column;align-items:flex-start}}
+    :root{--accent:#7c3aed;--bg:#0b0720;--muted:#b9b6cb}
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,Arial,Helvetica;background:linear-gradient(180deg,#0b0720,#13062e);color:#fff;min-height:100vh;margin:0;display:flex;align-items:center;justify-content:center;padding:28px}
+    .card{width:960px;max-width:94vw;background:rgba(255,255,255,0.02);padding:28px;border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,0.6)}
+    .header{display:flex;gap:18px;align-items:center}
+    .logo{width:120px;height:120px;border-radius:12px;object-fit:cover;border:1px solid rgba(255,255,255,0.03)}
+    h1{margin:0;font-size:22px}
+    p.muted{color:var(--muted);margin:6px 0 0 0}
+    .controls{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+    .btn{background:var(--accent);color:#fff;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:600;border:none;cursor:pointer}
+    .btn.secondary{background:rgba(255,255,255,0.04);color:#fff}
+    .status{margin-top:14px;color:var(--muted);font-size:14px}
+    .small{font-size:13px;color:var(--muted);margin-top:12px}
+    @media(max-width:720px){.header{flex-direction:column;align-items:flex-start}.controls{width:100%;flex-direction:column}.btn{width:100%}}
   </style>
+
+  <!-- ethers for in-browser wallet interaction -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.9.0/dist/ethers.min.js"></script>
 </head>
 <body>
-  <div class="card" role="main" aria-label="Farcaster Punks Mint">
-    <div class="row">
-      <img class="logo" src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafbdvvk4u66oe22sv2onpiznlwulgpnmdixxh4bhb62xsrw6ms6e" alt="logo" />
+  <main class="card" role="main" aria-label="Farcaster Punks Mint">
+    <div class="header">
+      <img class="logo" src="https://chocolate-major-guan-717.mypinata.cloud/ipfs/bafybeiafbdvvk4u66oe22sv2onpiznlwulgpnmdixxh4bhb62xsrw6ms6e" alt="Farcaster Punks logo" />
       <div>
-        <h1 style="margin:0 0 8px 0">Farcaster Punks — Mint</h1>
-        <p class="link" style="margin:0 0 12px 0">Mint langsung dari Warpcast (mini app) atau buka di browser.</p>
-
-        <!-- Tombol yang tampil di embed (tombol ini aslinya hanya UI; minting serverless perlu API) -->
-        <a class="btn" href="#" id="mintBtn">Mint Now</a>
-        <a class="btn" style="background:#222" href="https://opensea.io/collection/farcaster-punks-59466883/overview" target="_blank" rel="noreferrer">View on OpenSea</a>
+        <h1>Farcaster Punks — Official Mint</h1>
+        <p class="muted">Mint directly inside Warpcast (mini app) or in your browser with a connected wallet.</p>
+        <p class="small">If you open this page inside Warpcast, use the frame's Mint Now button to mint with the Warpcast flow.</p>
       </div>
     </div>
 
-    <p style="color:#b9b6cb;margin-top:18px">Jika miniapp dijalankan di Warpcast, tekan tombol <strong>Mint Now</strong> pada frame untuk memicu webhook ke server kamu (jika ada).</p>
-  </div>
+    <div class="controls" style="margin-top:18px">
+      <button id="mintBtn" class="btn">Mint Now</button>
+      <button id="openseaBtn" class="btn secondary">Mint on OpenSea</button>
+    </div>
+
+    <div id="status" class="status">Not connected</div>
+    <div id="log" class="small"></div>
+  </main>
 
 <script>
-  // Tombol mint — jika dijalankan di warpcast, framelistener bisa mengirim event (miniapp SDK).
-  document.getElementById('mintBtn').addEventListener('click', function(e){
-    e.preventDefault();
-    // saat client-only tanpa relayer, cukup tunjukkan prompt
-    alert('Mint action triggered (demo). Jika sudah punya webhook/server, tombol ini harus memanggil API /api/mint.');
-  });
+/*
+  Client-only mint flow:
+  - Tries in-wallet (window.ethereum) to call seadrop.mintPublic() so user pays gas.
+  - If no wallet found, tries to POST to /api/mint (relayer) — only works if you deployed that endpoint and set secrets.
+  - Update SEADROP_ADDRESS and NFT_CONTRACT below for your collection.
+*/
+
+const SEADROP_ADDRESS = "0x00005EA00Ac477B1030CE78506496e8C2dE24bf5"; // update if different
+const NFT_CONTRACT = "0x4d749dc4016936759e437b1a01d2ef0f0690e651"; // update to your contract
+const SEADROP_ABI = [
+  "function getPublicDrop(address nftContract) external view returns (uint80 mintPrice, uint48 startTime, uint48 endTime, uint16 maxTotalMintableByWallet, uint16 feeBps, bool restrictFeeRecipients)",
+  "function getAllowedFeeRecipients(address nftContract) external view returns (address[] memory)",
+  "function getFeeRecipients(address nftContract) external view returns (address[] memory)",
+  "function mintPublic(address nftContract, address feeRecipient, address minterIfNotPayer, uint256 quantity) external payable"
+];
+
+const mintBtn = document.getElementById('mintBtn');
+const openseaBtn = document.getElementById('openseaBtn');
+const statusEl = document.getElementById('status');
+const logEl = document.getElementById('log');
+
+openseaBtn.onclick = () => {
+  window.open("https://opensea.io/collection/farcaster-punks-59466883/overview", "_blank", "noreferrer");
+};
+
+async function updateStatus(text){
+  statusEl.innerText = text;
+}
+
+function appendLog(msg){
+  logEl.innerText = msg;
+}
+
+async function inWalletMint() {
+  if (!window.ethereum) throw new Error("No injected wallet (MetaMask / Warpcast wallet).");
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  await provider.send("eth_requestAccounts", []);
+  const signer = await provider.getSigner();
+  const user = await signer.getAddress();
+  updateStatus("Connected: " + user);
+
+  // read mint price
+  const readSeadrop = new ethers.Contract(SEADROP_ADDRESS, SEADROP_ABI, provider);
+  const publicDrop = await readSeadrop.getPublicDrop(NFT_CONTRACT);
+  const mintPrice = BigInt(publicDrop[0].toString ? publicDrop[0].toString() : publicDrop[0]);
+  const qty = 1n;
+  const total = mintPrice * qty;
+
+  appendLog("Mint price (wei): " + total.toString());
+
+  // call mintPublic with signer so user pays gas
+  const seadropWithSigner = new ethers.Contract(SEADROP_ADDRESS, SEADROP_ABI, signer);
+  // feeRecipient fallback to zero address for simplicity
+  const tx = await seadropWithSigner.mintPublic(NFT_CONTRACT, ethers.ZeroAddress, user, Number(qty), { value: total });
+  updateStatus("Transaction sent: " + tx.hash);
+  appendLog("Waiting for confirmation...");
+  await tx.wait();
+  updateStatus("Mint successful: " + tx.hash);
+  appendLog("");
+}
+
+async function relayerMint(userAddress) {
+  // POST to /api/mint — only works if you implemented and deployed a secure relayer endpoint
+  try {
+    const res = await fetch('/api/mint', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ minter: userAddress, quantity: 1 })
+    });
+    const j = await res.json();
+    if (!res.ok) throw new Error(j?.error || JSON.stringify(j));
+    updateStatus("Relayer minted tx: " + (j.txHash || j?.txHash || "ok"));
+    appendLog("Relayer response: " + JSON.stringify(j));
+    return j;
+  } catch (err) {
+    throw new Error("Relayer error: " + (err?.message || err));
+  }
+}
+
+mintBtn.onclick = async function(e){
+  e.preventDefault();
+  mintBtn.disabled = true;
+  updateStatus("Preparing mint...");
+  appendLog("");
+
+  // Try in-wallet first
+  try {
+    await inWalletMint();
+    mintBtn.disabled = false;
+    return;
+  } catch (err) {
+    // no wallet or wallet failed — try relayer
+    appendLog("In-wallet mint failed or not available: " + (err?.message || err));
+    updateStatus("No wallet or in-wallet mint failed — trying relayer (if available)...");
+  }
+
+  // If we reach here, attempt relayer: we need user's address (ask)
+  try {
+    let addr = prompt("No wallet detected. Enter your wallet address to receive minted NFT (minter):");
+    if (!addr) throw new Error("No address provided.");
+    // simple address normalization check
+    if (!/^0x[a-fA-F0-9]{40}$/.test(addr)) throw new Error("Invalid address format.");
+    await relayerMint(addr);
+  } catch (err) {
+    updateStatus("Mint failed: " + (err?.message || err));
+    appendLog("");
+  } finally {
+    mintBtn.disabled = false;
+  }
+};
 </script>
 </body>
 </html>
